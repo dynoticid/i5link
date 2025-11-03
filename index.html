@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>i5vR Rmx - Releases</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Outfit",sans-serif;}
+body{
+  min-height:100vh;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:40px 20px;
+  background: linear-gradient(160deg,#3b0764,#6d28d9,#7e22ce);
+  background-size:400% 400%;
+  animation: aurora 15s ease-in-out infinite;
+  color:#fff;
+}
+@keyframes aurora{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+h1{
+  margin-bottom:20px;
+  font-size:2.2rem;
+  text-align:center;
+}
+.back-btn{
+  align-self:flex-start;
+  margin-bottom:15px;
+  cursor:pointer;
+  font-weight:600;
+  color:#fff;
+  text-decoration:none;
+  padding:8px 16px;
+  border-radius:14px;
+  background: rgba(255,255,255,0.05);
+  transition: all 0.25s ease;
+}
+.back-btn:hover{
+  background: rgba(255,255,255,0.12);
+}
+.card{
+  width:100%;
+  max-width:700px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius:20px;
+  padding:25px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:auto;
+}
+th,td{
+  padding:14px 12px;
+  text-align:center;
+  border-bottom:1px solid rgba(255,255,255,0.2);
+}
+th{
+  font-weight:700;
+  background: rgba(255,255,255,0.1);
+}
+.status-text{
+  font-weight:600;
+  font-size:0.95rem;
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.status-text .dot{
+  font-size:1.2rem;
+}
+.status-approve .dot { color: #39ff14; }   
+.status-process .dot { color: #facc15; }   
+
+.smartlink-text{
+  font-weight:600;
+  color:#39f;
+  text-decoration:underline;
+  pointer-events:none;
+  cursor:default;
+}
+
+footer{
+  margin-top:35px;
+  color:rgba(255,255,255,0.6);
+  font-size:0.85rem;
+  text-align:center;
+}
+@media(max-width:600px){
+  th,td{padding:12px 8px;font-size:0.85rem;}
+}
+</style>
+</head>
+<body>
+
+<h1>i5vR Rmx - Releases</h1>
+
+<a href="https://dynoticid.github.io/smartlink/" class="back-btn">Back to Artists</a>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Smartlink</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Lagu Process -->
+      <tr>
+        <td>Janda Bodong</td>
+        <td><span class="status-text status-process">Process<span class="dot">•</span></span></td>
+        <td>Not available</td>
+      </tr>
+
+      <!-- Lagu Approve -->
+      <tr>
+        <td>HARDCORE ENAFF</td>
+        <td><span class="status-text status-approve">Approve<span class="dot">•</span></span></td>
+        <td><span class="smartlink-text">Link</span></td>
+      </tr>
+      <tr>
+        <td>TLHP Enakeun</td>
+        <td><span class="status-text status-approve">Approve<span class="dot">•</span></span></td>
+        <td><span class="smartlink-text">Link</span></td>
+      </tr>
+      <tr>
+        <td>Sunda Beberegan</td>
+        <td><span class="status-text status-approve">Approve<span class="dot">•</span></span></td>
+        <td><span class="smartlink-text">Link</span></td>
+      </tr>
+      <tr>
+        <td>Sunda Ngenah V1</td>
+        <td><span class="status-text status-approve">Approve<span class="dot">•</span></span></td>
+        <td><span class="smartlink-text">Link</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>© 2025 Dynotic ID</footer>
+
+</body>
+</html>
