@@ -24,11 +24,7 @@ body{
   50%{background-position:100% 50%;}
   100%{background-position:0% 50%;}
 }
-h1{
-  margin-bottom:20px;
-  font-size:2.2rem;
-  text-align:center;
-}
+h1{margin-bottom:20px;font-size:2.2rem;text-align:center;}
 .back-btn{
   align-self:flex-start;
   margin-bottom:15px;
@@ -41,9 +37,20 @@ h1{
   background: rgba(255,255,255,0.05);
   transition: all 0.25s ease;
 }
-.back-btn:hover{
-  background: rgba(255,255,255,0.12);
+.back-btn:hover{background: rgba(255,255,255,0.12);}
+.search-box{width:100%;max-width:700px;margin-bottom:20px;}
+.search-box input{
+  width:100%;
+  padding:10px 14px;
+  border-radius:14px;
+  border:none;
+  outline:none;
+  font-size:1rem;
+  background: rgba(255,255,255,0.1);
+  color:#fff;
 }
+.search-box input::placeholder{color:rgba(255,255,255,0.7);}
+.search-box input:focus{background:rgba(255,255,255,0.2);}
 .card{
   width:100%;
   max-width:700px;
@@ -64,10 +71,7 @@ th,td{
   text-align:center;
   border-bottom:1px solid rgba(255,255,255,0.2);
 }
-th{
-  font-weight:700;
-  background: rgba(255,255,255,0.1);
-}
+th{font-weight:700;background: rgba(255,255,255,0.1);}
 .status-text{
   font-weight:600;
   font-size:0.95rem;
@@ -77,80 +81,130 @@ th{
   justify-content:center;
   gap:6px;
 }
-.status-text .dot{
-  font-size:1.2rem;
-}
+.status-text .dot{font-size:1.2rem;}
 .status-approve .dot { color: #39ff14; }   
 .status-process .dot { color: #facc15; }   
 
-.smartlink-text{
+.smartlink{
+  color:#38bdf8;
   font-weight:600;
-  color:#39f;
   text-decoration:underline;
   pointer-events:none;
   cursor:default;
 }
 
+.pagination{
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+.page-btn{
+  cursor:pointer;
+  padding:8px 18px;
+  border-radius:14px;
+  background: rgba(255, 255, 255, 0.2);
+  color:#fff;
+  font-weight:600;
+  border:1px solid rgba(255,255,255,0.3);
+  box-shadow:0 0 10px rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+.page-btn:hover{
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  transform: scale(1.05);
+}
+.page-btn:disabled{
+  opacity:0.4;
+  cursor:not-allowed;
+  background: rgba(255,255,255,0.1);
+  box-shadow:none;
+}
 footer{
   margin-top:35px;
   color:rgba(255,255,255,0.6);
   font-size:0.85rem;
   text-align:center;
 }
-@media(max-width:600px){
-  th,td{padding:12px 8px;font-size:0.85rem;}
-}
+@media(max-width:600px){th,td{padding:12px 8px;font-size:0.85rem;}}
 </style>
 </head>
 <body>
 
 <h1>i5vR Rmx - Releases</h1>
-
 <a href="https://dynoticid.github.io/smartlink/" class="back-btn">Back to Artists</a>
+
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="Cari lagu...">
+</div>
 
 <div class="card">
   <table>
     <thead>
-      <tr>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Smartlink</th>
-      </tr>
+      <tr><th>Title</th><th>Status</th><th>Smartlink</th></tr>
     </thead>
-    <tbody>
-      <!-- Lagu Process -->
-      <tr>
-        <td>Janda Bodong</td>
-        <td><span class="status-text status-process">Process<span class="dot">•</span></span></td>
-        <td>Not available</td>
-      </tr>
-
-      <!-- Lagu Approve -->
-      <tr>
-        <td>HARDCORE ENAFF</td>
-        <td><span class="status-text status-approve">Approve<span class="dot">•</span></span></td>
-        <td><span class="smartlink-text">Link</span></td>
-      </tr>
-      <tr>
-        <td>TLHP Enakeun</td>
-        <td><span class="status-text status-approve">Approve<span class="dot">•</span></span></td>
-        <td><span class="smartlink-text">Link</span></td>
-      </tr>
-      <tr>
-        <td>Sunda Beberegan</td>
-        <td><span class="status-text status-approve">Approve<span class="dot">•</span></span></td>
-        <td><span class="smartlink-text">Link</span></td>
-      </tr>
-      <tr>
-        <td>Sunda Ngenah V1</td>
-        <td><span class="status-text status-approve">Approve<span class="dot">•</span></span></td>
-        <td><span class="smartlink-text">Link</span></td>
-      </tr>
-    </tbody>
+    <tbody id="table-body"></tbody>
   </table>
+  <div class="pagination">
+    <button class="page-btn" id="prevBtn">Prev</button>
+    <button class="page-btn" id="nextBtn">Next</button>
+  </div>
 </div>
 
 <footer>© 2025 Dynotic ID</footer>
+
+<script>
+const songs = [
+  {title:"Janda Bodong", status:"process"},
+  {title:"HARDCORE ENAFF", status:"approve"},
+  {title:"TLHP Enakeun", status:"approve"},
+  {title:"Sunda Beberegan", status:"approve"},
+  {title:"Sunda Ngenah V1", status:"approve"}
+];
+
+let filteredSongs = [...songs];
+let currentPage = 1;
+const rowsPerPage = 5;
+
+function renderTable(){
+  const tableBody = document.getElementById("table-body");
+  tableBody.innerHTML = "";
+  const start = (currentPage-1)*rowsPerPage;
+  const end = start+rowsPerPage;
+  const pageSongs = filteredSongs.slice(start,end);
+
+  pageSongs.forEach(song=>{
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${song.title}</td>
+      <td><span class="status-text status-${song.status}">${song.status.charAt(0).toUpperCase() + song.status.slice(1)}<span class="dot">•</span></span></td>
+      <td>${song.status==="approve"? '<span class="smartlink">Link</span>':'Not Available'}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  document.getElementById("prevBtn").disabled = currentPage===1;
+  document.getElementById("nextBtn").disabled = end>=filteredSongs.length;
+}
+
+document.getElementById("prevBtn").addEventListener("click", ()=>{
+  if(currentPage>1){currentPage--; renderTable();}
+});
+document.getElementById("nextBtn").addEventListener("click", ()=>{
+  if(currentPage*rowsPerPage<filteredSongs.length){currentPage++; renderTable();}
+});
+document.getElementById("searchInput").addEventListener("input",(e)=>{
+  const keyword = e.target.value.toLowerCase();
+  filteredSongs = songs.filter(s=>s.title.toLowerCase().includes(keyword));
+  currentPage=1;
+  renderTable();
+});
+
+renderTable();
+</script>
 
 </body>
 </html>
